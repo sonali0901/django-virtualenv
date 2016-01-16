@@ -4,16 +4,16 @@ from twisted.web.websockets import WebSocketsResource, WebSocketsProtocol, looku
 #basic protocol/api for handling realtime chat
 class MyChat(basic.LineReceiver):
     def connectionMade(self):
-        print "Got new client!"
+        print ("Got new client!")
         self.transport.write('connected ....\n')
         self.factory.clients.append(self)
  
     def connectionLost(self, reason):
-        print "Lost a client!"
+        print ("Lost a client!")
         self.factory.clients.remove(self)
  
     def dataReceived(self, data):
-        print "received", repr(data)
+        print ("received"), repr(data)
         for c in self.factory.clients:
             c.message(data)
  
